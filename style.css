@@ -1,0 +1,18 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #0c0f1d;
+  color: cyan;
+  margin: 0;
+  padding: 50px;
+}
+
+button {
+  background: cyan;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 20px;
+}
