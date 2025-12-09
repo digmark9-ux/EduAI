@@ -6,55 +6,68 @@
   <title>EduAI - Study Buddy</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <!-- Header -->
-  <header>
+  <!-- HEADER -->
+  <header class="app-header">
     <img src="assets/logo.png" alt="EduAI Logo" class="logo">
-    <h1>EduAI Study Buddy</h1>
+    <h1>EduAI</h1>
+    <p class="subtitle">Your Personal Study Buddy</p>
   </header>
 
-  <!-- Navigation -->
-  <nav>
+  <!-- NAV -->
+  <nav class="navbar">
     <button onclick="showSection('ask')">Ask Doubts</button>
-    <button onclick="showSection('notes')">Notes Library</button>
+    <button onclick="showSection('notes')">Notes</button>
     <button onclick="showSection('quiz')">Quizzes</button>
     <button onclick="showSection('flashcards')">Flashcards</button>
     <button onclick="showSection('profile')">Profile</button>
   </nav>
 
-  <!-- Sections -->
-  <main>
-    <!-- Ask Doubts -->
+  <!-- MAIN CONTENT -->
+  <main class="content">
+
+    <!-- ASK DOUBTS -->
     <section id="ask" class="section">
       <h2>Ask Doubts</h2>
       <textarea id="doubtInput" placeholder="Type your question here..."></textarea>
-      <button onclick="askAI()">Submit Question</button>
-      <div id="doubtAnswer"></div>
+      <button class="primary-btn" onclick="askAI()">Ask AI</button>
+      <div id="doubtAnswer" class="answer-box"></div>
     </section>
 
-    <!-- Notes -->
+    <!-- NOTES -->
     <section id="notes" class="section hidden">
       <h2>Notes Library</h2>
-      <p>Chapter-wise notes will appear here...</p>
+      <div id="notesList" class="card-container">
+        <p>Select a chapter from the left sidebar.</p>
+      </div>
     </section>
 
-    <!-- Quiz -->
+    <!-- QUIZZES -->
     <section id="quiz" class="section hidden">
       <h2>Quizzes</h2>
-      <p>Quiz content goes here...</p>
+      <p>Choose a chapter to begin a quiz.</p>
     </section>
 
-    <!-- Flashcards -->
+    <!-- FLASHCARDS -->
     <section id="flashcards" class="section hidden">
       <h2>Flashcards</h2>
-      <p>Flashcards content goes here...</p>
+      <div id="flashcardArea">
+        <p>No flashcards yet. Create or upload!</p>
+      </div>
     </section>
 
-    <!-- Profile -->
+    <!-- PROFILE -->
     <section id="profile" class="section hidden">
-      <h2>Profile</h2>
-      <p>Bookmarks, settings, progress, etc.</p>
+      <h2>Your Profile</h2>
+      <div class="profile-grid">
+        <div class="profile-card">📘 Bookmarked Notes</div>
+        <div class="profile-card">🧪 Quiz History</div>
+        <div class="profile-card">⚙ Settings</div>
+        <div class="profile-card">🚪 Log Out</div>
+      </div>
     </section>
+
   </main>
 
   <script src="script.js"></script>
