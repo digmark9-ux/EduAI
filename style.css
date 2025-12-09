@@ -1,132 +1,70 @@
-/* ---------------------------------------------------
-   GLOBAL STYLE
---------------------------------------------------- */
 body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: #0d1117;
-  color: #e6edf3;
-  text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #0f172a;
+    color: white;
 }
 
-/* HEADER */
-.app-header {
-  padding: 20px;
-  background: #161b22;
-  border-bottom: 2px solid #30363d;
+header {
+    background: #1e293b;
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.logo {
-  width: 80px;
-  display: block;
-  margin: 0 auto 10px;
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
 }
 
-.subtitle {
-  font-size: 14px;
-  opacity: 0.7;
+.input-box {
+    margin-top: 20px;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
 }
 
-/* NAVIGATION */
-.navbar {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 15px;
-  background: #161b22;
-  border-bottom: 2px solid #30363d;
+.input-box h2 {
+    margin-top: 0;
 }
 
-.navbar button {
-  padding: 10px 18px;
-  background: #238636;
-  border: none;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.navbar button:hover {
-  background: #2ea043;
-}
-
-/* MAIN CONTENT */
-.content {
-  padding: 30px 15px;
-  max-width: 900px;
-  margin: auto;
-}
-
-/* SECTIONS */
-.section {
-  display: none;
-}
-
-.section.active {
-  display: block;
-}
-
-/* TEXTAREA */
 textarea {
-  width: 90%;
-  height: 100px;
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 8px;
-  border: 1px solid #30363d;
-  background: #0d1117;
-  color: #e6edf3;
-  resize: vertical;
+    width: 100%;
+    height: 120px;
+    border-radius: 10px;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    outline: none;
+    resize: none;
+    background: #0f172a;
+    color: white;
 }
 
-/* PRIMARY BUTTON */
-.primary-btn {
-  margin-top: 15px;
-  padding: 12px 25px;
-  background: #0969da;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-  transition: 0.2s;
+button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #38bdf8;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.primary-btn:hover {
-  background: #1f6feb;
+button:hover {
+    background: #0ea5e9;
 }
 
-/* ANSWER BOX */
-.answer-box {
-  margin-top: 20px;
-  padding: 15px;
-  background: #161b22;
-  border-radius: 8px;
-  border: 1px solid #30363d;
-  min-height: 50px;
-}
-
-/* PROFILE GRID */
-.profile-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.profile-card {
-  background: #161b22;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #30363d;
-  font-size: 16px;
-}
-
-/* FLASHCARDS + NOTES CARDS */
-.card-container {
-  margin-top: 20px;
-}
-
-.hidden {
-  display: none !important;
+.response-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: #1e293b;
+    border-radius: 12px;
+    min-height: 100px;
+    white-space: pre-wrap;
 }
