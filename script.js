@@ -1,31 +1,15 @@
-// -----------------------------
-// SECTION SWITCHER
-// -----------------------------
-function showSection(sectionId) {
-  const sections = document.querySelectorAll(".section");
-  sections.forEach(sec => sec.classList.remove("active"));
-  document.getElementById(sectionId).classList.add("active");
-}
+function askEduAI() {
+    const input = document.getElementById("question").value;
+    const output = document.getElementById("response");
 
-// Default section
-showSection("ask");
+    if (input.trim() === "") {
+        output.innerText = "PLEASE ENTER A QUESTION, HUMAN!";
+        return;
+    }
 
-
-// -----------------------------
-// ASK AI (FAKE RESPONSE FOR NOW)
-// -----------------------------
-function askAI() {
-  const input = document.getElementById("doubtInput").value;
-  const answerBox = document.getElementById("doubtAnswer");
-
-  if (!input.trim()) {
-    answerBox.innerHTML = "<p>Please enter a question first!</p>";
-    return;
-  }
-
-  // TEMPORARY — until we add REAL AI
-  answerBox.innerHTML = `
-    <p><strong>AI:</strong> Hmm... let me think about that...</p>
-    <p>(Real AI response will be added soon!)</p>
-  `;
+    // SIMPLE PLACEHOLDER UNTIL YOU ADD REAL AI
+    output.innerText = "Thinking...\n\n" + 
+                       "NYEH HEH HEH!\n" +
+                       "You asked: " + input + "\n\n" +
+                       "EduAI will answer this soon!";
 }
