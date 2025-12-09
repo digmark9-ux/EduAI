@@ -1,25 +1,31 @@
-// Switch visible section
+// -----------------------------
+// SECTION SWITCHER
+// -----------------------------
 function showSection(sectionId) {
-  const sections = document.querySelectorAll('.section');
-  sections.forEach(sec => sec.classList.add('hidden'));
-  document.getElementById(sectionId).classList.remove('hidden');
+  const sections = document.querySelectorAll(".section");
+  sections.forEach(sec => sec.classList.remove("active"));
+  document.getElementById(sectionId).classList.add("active");
 }
 
-// Placeholder AI answer
-function askAI() {
-  const input = document.getElementById('doubtInput').value;
-  const answerDiv = document.getElementById('doubtAnswer');
+// Default section
+showSection("ask");
 
-  if (!input) {
-    answerDiv.innerHTML = "<p>Please type a question!</p>";
+
+// -----------------------------
+// ASK AI (FAKE RESPONSE FOR NOW)
+// -----------------------------
+function askAI() {
+  const input = document.getElementById("doubtInput").value;
+  const answerBox = document.getElementById("doubtAnswer");
+
+  if (!input.trim()) {
+    answerBox.innerHTML = "<p>Please enter a question first!</p>";
     return;
   }
 
-  // Placeholder AI response
-  answerDiv.innerHTML = `<p><strong>AI Answer:</strong> This is where the AI would respond to: "${input}"</p>`;
-}
-
-// Toggle Dark Mode
-function toggleDarkMode() {
-  document.body.classList.toggle('dark-mode');
+  // TEMPORARY — until we add REAL AI
+  answerBox.innerHTML = `
+    <p><strong>AI:</strong> Hmm... let me think about that...</p>
+    <p>(Real AI response will be added soon!)</p>
+  `;
 }
