@@ -1,52 +1,106 @@
-:root{
-  --bg:#07102a;
-  --card:#0e1a39;
-  --muted:#9aa8c2;
-  --royal:#2e5de6;
-  --glass: rgba(255,255,255,0.04);
-  --accent:#2e5de6;
-  --radius:12px;
+body {
+  margin: 0;
+  background: #0a1a2a; /* navy blue */
+  font-family: Arial, sans-serif;
+  color: white;
 }
 
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#e6eef8;background:var(--bg);-webkit-font-smoothing:antialiased}
-.wrap{min-height:100vh;display:flex;flex-direction:column}
+.wrap {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
 
-/* HERO */
-.hero{padding:28px 18px 12px}
-.hero-inner{max-width:960px;margin:0 auto}
-.brand{display:flex;align-items:center;gap:14px;justify-content:center}
-.logo{width:56px;height:56px;border-radius:10px;flex:0 0 56px}
-.title-wrap{text-align:center}
-.title{margin:0;font-size:44px;color:var(--royal);letter-spacing:0.5px}
-.subtitle{margin:6px 0 0;font-style:italic;color:var(--muted);font-size:15px}
-.subtitle .author{display:block;margin-top:6px;font-size:13px;color:rgba(255,255,255,0.6)}
+.hero {
+  text-align: center;
+  padding: 20px 0;
+}
 
-/* MAIN GRID */
-.main{flex:1;display:flex;flex-direction:column;align-items:center;padding:14px}
-.grid-ct{display:grid;grid-template-columns:repeat(2,220px);gap:18px;max-width:520px;margin-top:18px;align-items:center;justify-content:center}
-.card-btn{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass);border-radius:12px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);cursor:pointer;box-shadow:0 8px 20px rgba(2,6,23,0.6);transition:transform .15s,box-shadow .15s}
-.card-btn .icon{font-size:24px}
-.card-btn .label{font-weight:700;color:#ecf5ff}
-.card-btn:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.65)}
-.card-btn.big{grid-column:1 / span 2;width:66%;margin:6px auto}
+.title {
+  font-size: 2.6rem;
+  margin: 10px 0;
+  color: #6FA9FF; /* royal light blue */
+}
 
-/* PAGE AREA */
-.page-area{max-width:880px;width:100%;margin-top:30px;padding:0 18px}
-.subpage{background:var(--card);padding:18px;border-radius:12px;border:1px solid var(--glass);color:#e6eef8;box-shadow:0 8px 30px rgba(1,6,20,0.6)}
-.hidden{display:none}
-.subpage h2{margin-top:0}
-textarea#doubtInput{width:100%;min-height:120px;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:#06102a;color:inherit;outline:none;resize:vertical}
-.controls{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
-button.primary{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+.subtitle {
+  font-style: italic;
+  opacity: 0.8;
+}
 
-/* footer */
-.footer{text-align:center;padding:18px;color:var(--muted);font-size:13px}
+.grid-ct {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+}
 
-/* Responsive */
-@media (max-width:600px){
-  .grid-ct{grid-template-columns:repeat(2,1fr);max-width:360px}
-  .title{font-size:34px}
-  .card-btn{padding:14px}
-  .card-btn.big{width:84%}
+.card-btn {
+  background: #74B6FF; /* LIGHT BLUE */
+  border: none;
+  padding: 22px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  color: #00152a;
+  font-weight: bold;
+}
+
+.card-btn:hover {
+  background: #9CCBFF; /* even lighter */
+  transform: translateY(-5px);
+}
+
+.card-btn.big {
+  grid-column: span 2;
+}
+
+.icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.subpage {
+  background: #102236;
+  padding: 20px;
+  border-radius: 14px;
+  margin-top: 22px;
+}
+
+.hidden {
+  display: none;
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 10px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.primary {
+  background: #4aa8ff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.primary:hover {
+  background: #77c0ff;
+}
+
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  opacity: 0.6;
 }
