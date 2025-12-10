@@ -3,72 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduAI - Study Buddy</title>
+  <title>EduAI - Home</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-  <!-- HEADER -->
-  <header class="app-header">
-    <img src="assets/logo.png" alt="EduAI Logo" class="logo">
-    <h1>EduAI</h1>
-    <p class="subtitle">Your Personal Study Buddy</p>
-  </header>
+<body class="home-bg">
 
-  <!-- NAV -->
-  <nav class="navbar">
-    <button onclick="showSection('ask')">Ask Doubts</button>
-    <button onclick="showSection('notes')">Notes</button>
-    <button onclick="showSection('quiz')">Quizzes</button>
-    <button onclick="showSection('flashcards')">Flashcards</button>
-    <button onclick="showSection('profile')">Profile</button>
-  </nav>
+  <!-- MAIN CONTAINER -->
+  <div class="home-container">
 
-  <!-- MAIN CONTENT -->
-  <main class="content">
+    <!-- TITLE -->
+    <h1 class="app-title">EduAI</h1>
 
-    <!-- ASK DOUBTS -->
-    <section id="ask" class="section">
-      <h2>Ask Doubts</h2>
-      <textarea id="doubtInput" placeholder="Type your question here..."></textarea>
-      <button class="primary-btn" onclick="askAI()">Ask AI</button>
-      <div id="doubtAnswer" class="answer-box"></div>
-    </section>
+    <!-- DAILY QUOTE -->
+    <p class="daily-quote">
+      "<span id="quoteText">Kids are cool</span>"
+      <br>
+      <span class="quote-author">- Catboy</span>
+    </p>
 
-    <!-- NOTES -->
-    <section id="notes" class="section hidden">
-      <h2>Notes Library</h2>
-      <div id="notesList" class="card-container">
-        <p>Select a chapter from the left sidebar.</p>
-      </div>
-    </section>
+    <!-- BUTTON GRID -->
+    <div class="button-grid">
+      <button onclick="openPage('ask')">Ask Doubts</button>
+      <button onclick="openPage('notes')">Notes Library</button>
 
-    <!-- QUIZZES -->
-    <section id="quiz" class="section hidden">
-      <h2>Quizzes</h2>
-      <p>Choose a chapter to begin a quiz.</p>
-    </section>
+      <button onclick="openPage('motivation')">Motivation</button>
+      <button onclick="openPage('profile')">Profile</button>
 
-    <!-- FLASHCARDS -->
-    <section id="flashcards" class="section hidden">
-      <h2>Flashcards</h2>
-      <div id="flashcardArea">
-        <p>No flashcards yet. Create or upload!</p>
-      </div>
-    </section>
+      <button onclick="openPage('flashcards')">Flashcards</button>
+      <button onclick="openPage('shortcuts')">Shortcuts & Tricks</button>
 
-    <!-- PROFILE -->
-    <section id="profile" class="section hidden">
-      <h2>Your Profile</h2>
-      <div class="profile-grid">
-        <div class="profile-card">📘 Bookmarked Notes</div>
-        <div class="profile-card">🧪 Quiz History</div>
-        <div class="profile-card">⚙ Settings</div>
-        <div class="profile-card">🚪 Log Out</div>
-      </div>
-    </section>
+      <button class="single-button" onclick="openPage('practice')">Practice</button>
+    </div>
 
-  </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
