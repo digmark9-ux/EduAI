@@ -1,41 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduAI - Home</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EduAI — Home</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="brand">
+          <!-- inline placeholder logo (replace with assets/logo.png if you have one) -->
+          <svg class="logo" width="48" height="48" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <rect width="24" height="24" rx="6" fill="#2E5DE6"></rect>
+            <path d="M6 16.5V7.5L12 4.5L18 7.5V16.5L12 19.5L6 16.5Z" fill="white" opacity="0.06"/>
+            <path d="M8.5 12L11.2 10.15L14 12L11.2 13.85L8.5 12Z" fill="white"/>
+          </svg>
+          <div class="title-wrap">
+            <h1 class="title">EduAI</h1>
+            <p class="subtitle" id="quoteLine">"Kids are cool" <span class="author">- Catboy</span></p>
+          </div>
+        </div>
+      </div>
+    </header>
 
-<body class="home-bg">
+    <main class="main">
+      <section class="grid-ct">
+        <!-- row 1 -->
+        <button class="card-btn" data-page="ask">
+          <div class="icon">❓</div>
+          <div class="label">Ask Doubts</div>
+        </button>
+        <button class="card-btn" data-page="notes">
+          <div class="icon">📚</div>
+          <div class="label">Notes Library</div>
+        </button>
 
-  <!-- MAIN CONTAINER -->
-  <div class="home-container">
+        <!-- row 2 -->
+        <button class="card-btn" data-page="motivation">
+          <div class="icon">💡</div>
+          <div class="label">Motivation</div>
+        </button>
+        <button class="card-btn" data-page="profile">
+          <div class="icon">👤</div>
+          <div class="label">Profile</div>
+        </button>
 
-    <!-- TITLE -->
-    <h1 class="app-title">EduAI</h1>
+        <!-- row 3 -->
+        <button class="card-btn" data-page="flashcards">
+          <div class="icon">🃏</div>
+          <div class="label">Flashcards</div>
+        </button>
+        <button class="card-btn" data-page="shortcuts">
+          <div class="icon">⚡</div>
+          <div class="label">Shortcuts & Tricks</div>
+        </button>
 
-    <!-- DAILY QUOTE -->
-    <p class="daily-quote">
-      "<span id="quoteText">Kids are cool</span>"
-      <br>
-      <span class="quote-author">- Catboy</span>
-    </p>
+        <!-- single centered -->
+        <button class="card-btn big" data-page="practice">
+          <div class="icon">🏋️</div>
+          <div class="label">Practice</div>
+        </button>
+      </section>
 
-    <!-- BUTTON GRID -->
-    <div class="button-grid">
-      <button onclick="openPage('ask')">Ask Doubts</button>
-      <button onclick="openPage('notes')">Notes Library</button>
+      <!-- Subpage containers (hidden until opened) -->
+      <section id="page-area" class="page-area">
+        <div id="ask" class="subpage hidden">
+          <h2>Ask Doubts</h2>
+          <textarea id="doubtInput" placeholder="Type a question or paste a problem..."></textarea>
+          <div class="controls">
+            <button id="askBtn" class="primary">Ask AI</button>
+          </div>
+          <div id="doubtAnswer" class="result"></div>
+        </div>
 
-      <button onclick="openPage('motivation')">Motivation</button>
-      <button onclick="openPage('profile')">Profile</button>
+        <div id="notes" class="subpage hidden">
+          <h2>Notes Library</h2>
+          <p>Chapter-wise notes will appear here.</p>
+        </div>
 
-      <button onclick="openPage('flashcards')">Flashcards</button>
-      <button onclick="openPage('shortcuts')">Shortcuts & Tricks</button>
+        <div id="motivation" class="subpage hidden">
+          <h2>Motivation</h2>
+          <p id="motivationText">Short motivational content.</p>
+        </div>
 
-      <button class="single-button" onclick="openPage('practice')">Practice</button>
-    </div>
+        <div id="profile" class="subpage hidden">
+          <h2>Profile</h2>
+          <p>Bookmarks and settings.</p>
+        </div>
 
+        <div id="flashcards" class="subpage hidden">
+          <h2>Flashcards</h2>
+          <p>Flashcards area.</p>
+        </div>
+
+        <div id="shortcuts" class="subpage hidden">
+          <h2>Shortcuts & Tricks</h2>
+          <p>Quick formulas and tricks.</p>
+        </div>
+
+        <div id="practice" class="subpage hidden">
+          <h2>Practice</h2>
+          <p>Practice tests & quizzes.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">EduAI • built for students — demo</footer>
   </div>
 
   <script src="script.js"></script>
