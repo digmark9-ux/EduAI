@@ -1,106 +1,38 @@
-body {
-  margin: 0;
-  background: #0a1a2a; /* navy blue */
-  font-family: Arial, sans-serif;
-  color: white;
-}
+// 🍝 PAPYRUS-CODE: PAGE SWITCHER
+const buttons = document.querySelectorAll(".card-btn");
+const pages = document.querySelectorAll(".subpage");
 
-.wrap {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-}
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const page = btn.dataset.page;
 
-.hero {
-  text-align: center;
-  padding: 20px 0;
-}
+    pages.forEach(p => p.classList.remove("active"));
+    document.getElementById(page).classList.add("active");
 
-.title {
-  font-size: 2.6rem;
-  margin: 10px 0;
-  color: #6FA9FF; /* royal light blue */
-}
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
 
-.subtitle {
-  font-style: italic;
-  opacity: 0.8;
-}
+// 🍝 ASK AI (TEMP RESPONSE — WE CAN CONNECT API LATER!)
+document.getElementById("askBtn").addEventListener("click", () => {
+  const input = document.getElementById("doubtInput").value.trim();
+  const output = document.getElementById("doubtAnswer");
 
-.grid-ct {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  margin-top: 20px;
-}
+  if (input === "") {
+    output.innerHTML = "Please type a question!";
+    return;
+  }
 
-.card-btn {
-  background: #74B6FF; /* LIGHT BLUE */
-  border: none;
-  padding: 22px;
-  border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.2s;
-  color: #00152a;
-  font-weight: bold;
-}
+  output.innerHTML = "Thinking... (AI backend not connected yet)";
+});
 
-.card-btn:hover {
-  background: #9CCBFF; /* even lighter */
-  transform: translateY(-5px);
-}
+// 🍝 DAILY QUOTE ROTATION
+const quotes = [
+  { text: "Kids are cool", author: "📘 Catboy" },
+  { text: "Study smart, not hard", author: "🧠 Unknown" },
+  { text: "One hour a day keeps failure away", author: "🔥 Someone" },
+  { text: "Focus on the goal, not the struggle", author: "⚡ You" }
+];
 
-.card-btn.big {
-  grid-column: span 2;
-}
-
-.icon {
-  font-size: 2rem;
-  margin-bottom: 8px;
-}
-
-.subpage {
-  background: #102236;
-  padding: 20px;
-  border-radius: 14px;
-  margin-top: 22px;
-}
-
-.hidden {
-  display: none;
-}
-
-textarea {
-  width: 100%;
-  height: 120px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  margin-top: 10px;
-  outline: none;
-  font-size: 1rem;
-}
-
-.primary {
-  background: #4aa8ff;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  margin-top: 10px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.primary:hover {
-  background: #77c0ff;
-}
-
-.footer {
-  margin-top: 40px;
-  text-align: center;
-  opacity: 0.6;
-}
+const q = quotes[Math.floor(Math.random() * quotes.length)];
+document.getElementById("quoteLine").innerHTML = `"${q.text}" <span class='author'>- ${q.author}</span>`;
