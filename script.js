@@ -1,58 +1,106 @@
-// daily quotes (you can edit or expand)
-const quotes = [
-  {t: "Kids are cool", a: "Catboy"},
-  {t: "Practice is the key to mastery.", a: "Unknown"},
-  {t: "Small steps every day become big wins.", a: "Tomodachi"},
-  {t: "Learn, then teach.", a: "Anonymous"},
-];
-
-// rotate daily quote (based on day number)
-function setDailyQuote(){
-  const idx = (new Date()).getDate() % quotes.length;
-  const q = quotes[idx];
-  const el = document.getElementById('quoteLine');
-  if(el) el.innerHTML = `"${q.t}" <span class="author">- ${q.a}</span>`;
-}
-setDailyQuote();
-
-// navigation between home buttons and subpages
-document.querySelectorAll('.card-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=> {
-    const page = btn.dataset.page;
-    openSubpage(page);
-  });
-});
-
-function openSubpage(id){
-  // hide all subpages
-  document.querySelectorAll('.subpage').forEach(s => s.classList.add('hidden'));
-  // if target exists, show it
-  const el = document.getElementById(id);
-  if(el){
-    el.classList.remove('hidden');
-    // scroll into view smoothly
-    el.scrollIntoView({behavior:'smooth', block:'start'});
-  } else {
-    // fallback: show a temporary message in page-area
-    const area = document.getElementById('page-area');
-    if(area){
-      area.innerHTML = `<div class="subpage"><h2>No page: ${id}</h2><p>This subpage isn't implemented yet.</p></div>`;
-    }
-  }
+body {
+  margin: 0;
+  background: #0a1a2a; /* navy blue */
+  font-family: Arial, sans-serif;
+  color: white;
 }
 
-// simple ask AI placeholder (replace with your API integration)
-const askBtn = document.getElementById('askBtn');
-if(askBtn){
-  askBtn.addEventListener('click', async ()=>{
-    const input = document.getElementById('doubtInput').value || '';
-    const out = document.getElementById('doubtAnswer');
-    out.innerHTML = '<em>Thinking...</em>';
-    // small simulated delay
-    await new Promise(r=>setTimeout(r,700));
-    // simple simulated answer
-    out.innerHTML = `<strong>AI:</strong> This is a placeholder answer for: <br><pre style="white-space:pre-wrap">${escapeHtml(input)}</pre>`;
-  });
+.wrap {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
 
-function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+.hero {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.title {
+  font-size: 2.6rem;
+  margin: 10px 0;
+  color: #6FA9FF; /* royal light blue */
+}
+
+.subtitle {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.grid-ct {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.card-btn {
+  background: #74B6FF; /* LIGHT BLUE */
+  border: none;
+  padding: 22px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  color: #00152a;
+  font-weight: bold;
+}
+
+.card-btn:hover {
+  background: #9CCBFF; /* even lighter */
+  transform: translateY(-5px);
+}
+
+.card-btn.big {
+  grid-column: span 2;
+}
+
+.icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.subpage {
+  background: #102236;
+  padding: 20px;
+  border-radius: 14px;
+  margin-top: 22px;
+}
+
+.hidden {
+  display: none;
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 10px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.primary {
+  background: #4aa8ff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.primary:hover {
+  background: #77c0ff;
+}
+
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  opacity: 0.6;
+}
