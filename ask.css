@@ -1,4 +1,4 @@
-/* Chat layout */
+/* Ask Doubts chat layout */
 .chat-wrap { display: flex; flex-direction: column; height: 100vh; }
 .chat-main { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; }
 .chat-box { flex: 1; overflow-y: auto; margin-bottom: 15px; display: flex; flex-direction: column; }
@@ -13,5 +13,5 @@
 .chat-message.user { align-self: flex-end; background: #1e90ff; color: #fff; border-bottom-right-radius: 0; }
 .chat-message.ai { align-self: flex-start; background: #e0e0e0; color: #000; border-bottom-left-radius: 0; }
 
-/* Optional animation for fade-in effect (word-by-word handled in JS) */
+/* Smooth fade-in for words handled in JS */
 .chat-message span { opacity: 0; transition: opacity 0.3s; }
