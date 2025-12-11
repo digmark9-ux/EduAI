@@ -1,27 +1,36 @@
 /* Full Ask Doubts Chat Styling */
 
-/* Full page wrapper with gradient */
+/* 1. Full page background with gradient (removes EduAI logo) */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364); /* page gradient */
+}
+
+/* Wrapper for chat */
 .chat-wrap { 
   display: flex; 
   flex-direction: column; 
   height: 100vh; 
   padding: 10px; 
-  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364); /* same as card */
+  box-sizing: border-box;
 }
 
-/* Main chat container (big box) */
+/* Main chat container (card) */
 .chat-main { 
   flex: 1; 
   display: flex; 
   flex-direction: column; 
   justify-content: flex-end; 
   padding: 10px;
-  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364); /* same as page */
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364); /* same gradient as page */
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* Scrollable messages container (the "canvas") */
+/* 2. Scrollable messages container (the "canvas") with gradient */
 .chat-box { 
   flex: 1; 
   overflow-y: auto; 
@@ -29,21 +38,19 @@
   display: flex; 
   flex-direction: column; 
   padding: 10px; 
-
-  /* Gradient background for the message canvas */
-  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
-  border-radius: 10px; /* rounded edges for canvas */
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364); /* gradient for messages canvas */
+  border-radius: 10px;
 }
 
-
-/* Input area at bottom with lighter gradient */
+/* 3. Input area at bottom with slightly lighter gradient */
 .chat-input-area { 
   display: flex; 
   gap: 10px; 
   padding: 10px;
   border-radius: 10px;
-  background: linear-gradient(to right, #203a43, #2c5364); /* lighter than main */
+  background: linear-gradient(to right, #203a43, #2c5364); /* lighter gradient than main */
   border: 1px solid rgba(255,255,255,0.2);
+  align-items: center;
 }
 
 /* Textarea inside input box */
@@ -54,19 +61,25 @@
   font-size: 1rem; 
   border-radius: 5px; 
   border: none; 
-  background: rgba(255,255,255,0.2); 
+  background: rgba(255,255,255,0.2); /* semi-transparent for gradient effect */
   color: #fff; 
 }
 
-/* Send button */
+/* Placeholder text color */
+.chat-input-area textarea::placeholder {
+  color: #d3d3d3; /* light grey */
+}
+
+/* 2. Replace send button with PNG */
 .chat-input-area button { 
-  padding: 10px 20px; 
+  width: 40px; 
+  height: 40px; 
   border: none; 
-  border-radius: 5px; 
-  background: #1e90ff; 
-  color: #fff; 
-  font-weight: bold; 
+  background: url('assets/15836458.png') no-repeat center center; 
+  background-size: contain;
   cursor: pointer; 
+  padding: 0;
+  border-radius: 5px; 
 }
 
 /* Chat messages styling */
@@ -81,18 +94,17 @@
 
 .chat-message.user { 
   align-self: flex-end; 
-  background: rgba(30,144,255,0.85); 
+  background: rgba(30,144,255,0.85); /* slightly transparent */
   color: #fff; 
   border-bottom-right-radius: 0; 
 }
 
 .chat-message.ai { 
   align-self: flex-start; 
-  background: rgba(224,224,224,0.85); 
+  background: rgba(224,224,224,0.85); /* slightly transparent */
   color: #000; 
   border-bottom-left-radius: 0; 
 }
-
 
 /* Smooth fade-in for words handled in JS */
 .chat-message span { 
@@ -112,4 +124,14 @@
 @keyframes blink {
   0%, 50%, 100% { opacity: 0.3; }
   25%, 75% { opacity: 0.7; }
+}
+
+/* Optional scrollbar styling */
+.chat-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
 }
