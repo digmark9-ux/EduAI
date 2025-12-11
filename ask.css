@@ -81,17 +81,18 @@
 
 .chat-message.user { 
   align-self: flex-end; 
-  background: rgba(30,144,255,0.9); 
+  background: rgba(30,144,255,0.85); 
   color: #fff; 
   border-bottom-right-radius: 0; 
 }
 
 .chat-message.ai { 
   align-self: flex-start; 
-  background: rgba(224,224,224,0.9); 
+  background: rgba(224,224,224,0.85); 
   color: #000; 
   border-bottom-left-radius: 0; 
 }
+
 
 /* Smooth fade-in for words handled in JS */
 .chat-message span { 
