@@ -1,23 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask Doubts - EduAI</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ask Doubts — EduAI</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <div class="wrap">
+    
+    <header class="hero small-hero">
+      <div class="hero-inner">
+        <div class="brand">
+          <div class="title-wrap">
+            <h1 class="title">Ask Doubts</h1>
+            <p class="subtitle">Powered by EduAI</p>
+          </div>
+        </div>
+      </div>
+    </header>
 
-    <div class="ask-container">
-        <h1 class="ask-title">Ask Your Doubts</h1>
+    <main class="main">
+      <section class="page-area active-page">
 
-        <textarea id="doubtInput" placeholder="Type your doubt here..."></textarea>
+        <div class="ask-page">
 
-        <button id="sendDoubt">Ask</button>
+          <textarea id="doubtInput" 
+            class="ask-textarea" 
+            placeholder="Type a question or paste a problem..."></textarea>
 
-        <div id="responseBox"></div>
-    </div>
+          <div class="controls">
+            <button id="sendDoubt" class="primary">Ask AI</button>
+          </div>
 
-    <script src="ask.js"></script>
+          <div id="responseBox" class="result"></div>
+
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="footer">EduAI • built for students — demo</footer>
+
+  </div>
+
+  <script src="ask.js"></script>
 </body>
 </html>
