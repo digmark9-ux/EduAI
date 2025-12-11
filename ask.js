@@ -1,66 +1,41 @@
-const input = document.getElementById("doubtInput");
-const button = document.getElementById("sendDoubt");
-const chatBox = document.getElementById("chatBox");
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ask Doubts — EduAI</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ask.css" />
+</head>
+<body>
+  <div class="wrap chat-wrap">
+    
+    <header class="hero small-hero">
+      <div class="hero-inner">
+        <div class="brand">
+          <div class="title-wrap">
+            <h1 class="title">Ask Doubts</h1>
+            <p class="subtitle">Powered by EduAI</p>
+          </div>
+        </div>
+      </div>
+    </header>
 
-// Function to add a message
-function addMessage(text, sender) {
-  const msgDiv = document.createElement("div");
-  msgDiv.classList.add("chat-message", sender);
+    <main class="main chat-main">
+      <div id="chatBox" class="chat-box">
+        <!-- Chat messages appear here -->
+      </div>
+      
+      <div class="chat-input-area">
+        <textarea id="doubtInput" placeholder="Type your question..."></textarea>
+        <button id="sendDoubt" class="primary">Send</button>
+      </div>
+    </main>
 
-  if (sender === "ai") {
-    // Word-by-word fade-in effect
-    const words = text.split(" ");
-    chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
+    <footer class="footer">EduAI • built for students — demo</footer>
 
-    let i = 0;
+  </div>
 
-    function addNextWord() {
-      if (i < words.length) {
-        const wordSpan = document.createElement("span");
-        wordSpan.textContent = (i === 0 ? "" : " ") + words[i];
-        wordSpan.style.opacity = "0";
-        msgDiv.appendChild(wordSpan);
-
-        // Trigger fade-in
-        setTimeout(() => {
-          wordSpan.style.transition = "opacity 0.3s";
-          wordSpan.style.opacity = "1";
-        }, 50);
-
-        i++;
-        setTimeout(addNextWord, 150); // Delay between words (adjust for speed)
-        chatBox.scrollTop = chatBox.scrollHeight;
-      }
-    }
-
-    addNextWord();
-  } else {
-    // User message
-    msgDiv.textContent = text;
-    chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-}
-
-// Send button click
-button.addEventListener("click", () => {
-  const text = input.value.trim();
-  if (!text) return;
-
-  addMessage(text, "user"); // User message
-  input.value = ""; // Clear input immediately
-
-  // AI response after 3-second delay
-  setTimeout(() => {
-    addMessage("Tomodachi, the GREAT PAPYRUS is still connecting your real AI… NYEH HEH!", "ai");
-  }, 3000);
-});
-
-// Optional: allow pressing Enter to send
-input.addEventListener("keypress", (e) => {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    button.click();
-  }
-});
+  <script src="ask.js"></script>
+</body>
+</html>
