@@ -21,7 +21,7 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* Scrollable messages container */
+/* Scrollable messages container (the "canvas") */
 .chat-box { 
   flex: 1; 
   overflow-y: auto; 
@@ -29,7 +29,12 @@
   display: flex; 
   flex-direction: column; 
   padding: 10px; 
+
+  /* Gradient background for the message canvas */
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+  border-radius: 10px; /* rounded edges for canvas */
 }
+
 
 /* Input area at bottom with lighter gradient */
 .chat-input-area { 
