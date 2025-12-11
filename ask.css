@@ -15,3 +15,15 @@
 
 /* Smooth fade-in for words handled in JS */
 .chat-message span { opacity: 0; transition: opacity 0.3s; }
+.typing-indicator {
+  font-style: normal;
+  color: #555;
+  font-weight: bold;
+  opacity: 0.7;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 0.3; }
+  25%, 75% { opacity: 0.7; }
+}
