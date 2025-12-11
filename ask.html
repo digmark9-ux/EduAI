@@ -6,9 +6,8 @@
   <title>Ask Doubts — EduAI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <div class="wrap">
+  <div class="wrap chat-wrap">
     
     <header class="hero small-hero">
       <div class="hero-inner">
@@ -21,24 +20,15 @@
       </div>
     </header>
 
-    <main class="main">
-      <section class="page-area active-page">
-
-        <div class="ask-page">
-
-          <textarea id="doubtInput" 
-            class="ask-textarea" 
-            placeholder="Type a question or paste a problem..."></textarea>
-
-          <div class="controls">
-            <button id="sendDoubt" class="primary">Ask AI</button>
-          </div>
-
-          <div id="responseBox" class="result"></div>
-
-        </div>
-
-      </section>
+    <main class="main chat-main">
+      <div id="chatBox" class="chat-box">
+        <!-- Messages will appear here -->
+      </div>
+      
+      <div class="chat-input-area">
+        <textarea id="doubtInput" placeholder="Type your question..."></textarea>
+        <button id="sendDoubt" class="primary">Send</button>
+      </div>
     </main>
 
     <footer class="footer">EduAI • built for students — demo</footer>
