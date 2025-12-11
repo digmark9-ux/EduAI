@@ -1,66 +1,24 @@
-const input = document.getElementById("doubtInput");
-const button = document.getElementById("sendDoubt");
-const chatBox = document.getElementById("chatBox");
+// Homepage script.js
+document.querySelectorAll(".card-btn").forEach(button => {
+  const page = button.dataset.page;
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".subpage").forEach(sp => sp.classList.add("hidden"));
+    const target = document.getElementById(page);
+    if(target) target.classList.remove("hidden");
+  });
+});
 
-// Function to add a message
-function addMessage(text, sender) {
-  const msgDiv = document.createElement("div");
-  msgDiv.classList.add("chat-message", sender);
+// Optional: dynamic quotes on homepage
+const quotes = [
+  `"Knowledge is power" - EduAI`,
+  `"Learn, grow, conquer" - EduAI`,
+  `"The beginning of the end is always the end of the beginning" - Tomodachi`
+];
 
-  if (sender === "ai") {
-    // Word-by-word fade-in effect
-    const words = text.split(" ");
-    chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    let i = 0;
-
-    function addNextWord() {
-      if (i < words.length) {
-        const wordSpan = document.createElement("span");
-        wordSpan.textContent = (i === 0 ? "" : " ") + words[i];
-        wordSpan.style.opacity = "0";
-        msgDiv.appendChild(wordSpan);
-
-        // Trigger fade-in
-        setTimeout(() => {
-          wordSpan.style.transition = "opacity 0.3s";
-          wordSpan.style.opacity = "1";
-        }, 50);
-
-        i++;
-        setTimeout(addNextWord, 150); // Delay between words (adjust for speed)
-        chatBox.scrollTop = chatBox.scrollHeight;
-      }
-    }
-
-    addNextWord();
-  } else {
-    // User message
-    msgDiv.textContent = text;
-    chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
+const quoteLine = document.getElementById("quoteLine");
+if (quoteLine) {
+  setInterval(() => {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteLine.textContent = randomQuote;
+  }, 10000); // every 10 seconds
 }
-
-// Send button click
-button.addEventListener("click", () => {
-  const text = input.value.trim();
-  if (!text) return;
-
-  addMessage(text, "user"); // User message
-  input.value = ""; // Clear input immediately
-
-  // AI response after 3-second delay
-  setTimeout(() => {
-    addMessage("Tomodachi, the GREAT PAPYRUS is still connecting your real AI… NYEH HEH!", "ai");
-  }, 3000);
-});
-
-// Optional: allow pressing Enter to send
-input.addEventListener("keypress", (e) => {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    button.click();
-  }
-});
