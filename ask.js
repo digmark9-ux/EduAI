@@ -1,18 +1,24 @@
 const input = document.getElementById("doubtInput");
 const button = document.getElementById("sendDoubt");
-const responseBox = document.getElementById("responseBox");
+const chatBox = document.getElementById("chatBox");
+
+function addMessage(text, sender) {
+  const msgDiv = document.createElement("div");
+  msgDiv.classList.add("chat-message", sender);
+  msgDiv.textContent = text;
+  chatBox.appendChild(msgDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
 
 button.addEventListener("click", () => {
   const text = input.value.trim();
+  if (!text) return;
 
-  if (text === "") {
-    responseBox.innerHTML = `<p class="error">Please enter a doubt first.</p>`;
-    return;
-  }
+  addMessage(text, "user"); // user's message on right
+  input.value = "";
 
-  // TEMPORARY AI RESPONSE
-  responseBox.innerHTML = `
-    <div class="user-question"><strong>You asked:</strong> ${text}</div>
-    <div class="ai-answer"><em>AI:</em> Tomodachi, the GREAT PAPYRUS is still connecting your real AI… NYEH HEH!</div>
-  `;
+  // simulate AI typing delay
+  setTimeout(() => {
+    addMessage(`Tomodachi, the GREAT PAPYRUS is still connecting your real AI… NYEH HEH!`, "ai");
+  }, 800); // 800ms delay
 });
