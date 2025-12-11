@@ -1,8 +1,10 @@
 body {
   margin: 0;
-  background: linear-gradient(to bottom right, #7474BF, #348AC7);
   font-family: Arial, sans-serif;
   color: white;
+  background: url("assets/ceda5920-e83b-4b3f-a40b-de999810cf4c.png") no-repeat center center fixed;
+background-size: cover;
+
 }
 
 
