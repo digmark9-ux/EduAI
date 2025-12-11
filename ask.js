@@ -3,14 +3,16 @@ const button = document.getElementById("sendDoubt");
 const responseBox = document.getElementById("responseBox");
 
 button.addEventListener("click", () => {
-    const text = input.value.trim();
+  const text = input.value.trim();
 
-    if (text === "") {
-        responseBox.innerHTML = "<p>Please enter a doubt.</p>";
-        return;
-    }
+  if (text === "") {
+    responseBox.innerHTML = `<p class="error">Please enter a doubt first.</p>`;
+    return;
+  }
 
-    // TEMPORARY RESPONSE (until you add your AI backend)
-    responseBox.innerHTML = `<p><strong>You asked:</strong> ${text}</p>
-    <p><em>AI:</em> Tomodachi, the GREAT PAPYRUS is still connecting your real AI… NYEH HEH!</p>`;
+  // TEMPORARY AI RESPONSE
+  responseBox.innerHTML = `
+    <div class="user-question"><strong>You asked:</strong> ${text}</div>
+    <div class="ai-answer"><em>AI:</em> Tomodachi, the GREAT PAPYRUS is still connecting your real AI… NYEH HEH!</div>
+  `;
 });
