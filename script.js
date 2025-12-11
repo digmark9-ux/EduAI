@@ -1,41 +1,66 @@
-// --- PAGE SWITCHING ---
-const buttons = document.querySelectorAll('.card-btn');
-const pages = document.querySelectorAll('.subpage');
+const input = document.getElementById("doubtInput");
+const button = document.getElementById("sendDoubt");
+const chatBox = document.getElementById("chatBox");
 
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const pageName = btn.dataset.page;
-    openPage(pageName);
-  });
-});
+// Function to add a message
+function addMessage(text, sender) {
+  const msgDiv = document.createElement("div");
+  msgDiv.classList.add("chat-message", sender);
 
-function openPage(pageName) {
-  pages.forEach(p => p.classList.add('hidden'));
-  document.getElementById(pageName).classList.remove('hidden');
-  window.scrollTo(0, 0);
+  if (sender === "ai") {
+    // Word-by-word fade-in effect
+    const words = text.split(" ");
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    let i = 0;
+
+    function addNextWord() {
+      if (i < words.length) {
+        const wordSpan = document.createElement("span");
+        wordSpan.textContent = (i === 0 ? "" : " ") + words[i];
+        wordSpan.style.opacity = "0";
+        msgDiv.appendChild(wordSpan);
+
+        // Trigger fade-in
+        setTimeout(() => {
+          wordSpan.style.transition = "opacity 0.3s";
+          wordSpan.style.opacity = "1";
+        }, 50);
+
+        i++;
+        setTimeout(addNextWord, 150); // Delay between words (adjust for speed)
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+
+    addNextWord();
+  } else {
+    // User message
+    msgDiv.textContent = text;
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
 }
 
-// --- ASK DOUBTS LOGIC ---
-const askBtn = document.getElementById("askBtn");
-const doubtInput = document.getElementById("doubtInput");
-const doubtAnswer = document.getElementById("doubtAnswer");
+// Send button click
+button.addEventListener("click", () => {
+  const text = input.value.trim();
+  if (!text) return;
 
-askBtn.addEventListener("click", () => {
-  const question = doubtInput.value.trim();
+  addMessage(text, "user"); // User message
+  input.value = ""; // Clear input immediately
 
-  if (question === "") {
-    doubtAnswer.innerHTML = "Please type a question first!";
-    return;
-  }
-
-  // Show loading animation
-  doubtAnswer.innerHTML = "<em>Thinking... please wait ⏳</em>";
-
-  // Fake AI response (for now)
+  // AI response after 3-second delay
   setTimeout(() => {
-    doubtAnswer.innerHTML = 
-      "Here is a helpful explanation:<br><br>" +
-      "👉 <strong>" + question + "</strong><br><br>" +
-      "This feature will soon use REAL AI!";
-  }, 1200);
+    addMessage("Tomodachi, the GREAT PAPYRUS is still connecting your real AI… NYEH HEH!", "ai");
+  }, 3000);
+});
+
+// Optional: allow pressing Enter to send
+input.addEventListener("keypress", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    button.click();
+  }
 });
