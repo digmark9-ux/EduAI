@@ -1,9 +1,10 @@
 body {
   margin: 0;
-  background: #0a1a2a; /* navy blue */
+  background: linear-gradient(to bottom right, #7474BF, #348AC7);
   font-family: Arial, sans-serif;
   color: white;
 }
+
 
 .wrap {
   max-width: 900px;
