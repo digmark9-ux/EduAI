@@ -27,7 +27,7 @@
       <section class="grid-ct">
 
         <!-- row 1 -->
-        <button class="card-btn" data-page="ask">
+        <button class="card-btn" onclick="window.location.href='ask.html'">
           <div class="icon">❓</div>
           <div class="label">Ask Doubts</div>
         </button>
@@ -69,15 +69,6 @@
 
       <section id="page-area" class="page-area">
 
-        <div id="ask" class="subpage hidden">
-          <h2>Ask Doubts</h2>
-          <textarea id="doubtInput" placeholder="Type a question or paste a problem..."></textarea>
-          <div class="controls">
-            <button id="askBtn" class="primary">Ask AI</button>
-          </div>
-          <div id="doubtAnswer" class="result"></div>
-        </div>
-
         <div id="notes" class="subpage hidden">
           <h2>Notes Library</h2>
           <p>Chapter-wise notes will appear here.</p>
@@ -107,6 +98,7 @@
           <h2>Practice</h2>
           <p>Practice tests & quizzes.</p>
         </div>
+
       </section>
     </main>
 
