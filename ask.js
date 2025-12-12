@@ -1,93 +1,75 @@
-const input = document.getElementById("doubtInput");
-const button = document.getElementById("sendDoubt");
+// --- Ask Doubts AI (Gemini Free Endpoint) ---
+
 const chatBox = document.getElementById("chatBox");
+const input = document.getElementById("doubtInput");
+const sendBtn = document.getElementById("sendDoubt");
 
-// Function to add a message
+// Add message to chat box
 function addMessage(text, sender) {
-  const msgDiv = document.createElement("div");
-  msgDiv.classList.add("chat-message", sender);
-  chatBox.appendChild(msgDiv);
+  const msg = document.createElement("div");
+  msg.classList.add("chat-message", sender);
+  msg.textContent = text;
+  chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
-
-  if (sender === "ai") {
-    const words = text.split(" ");
-    let i = 0;
-
-    function typeNextWord() {
-      if (i < words.length) {
-        const wordSpan = document.createElement("span");
-        wordSpan.textContent = (i === 0 ? "" : " ") + words[i];
-        wordSpan.style.opacity = "0";
-        msgDiv.appendChild(wordSpan);
-        chatBox.scrollTop = chatBox.scrollHeight;
-
-        setTimeout(() => {
-          wordSpan.style.transition = "opacity 0.4s";
-          wordSpan.style.opacity = "1";
-        }, 50);
-
-        i++;
-        const delay = 100 + Math.random() * 150; // natural typing variation
-        setTimeout(typeNextWord, delay);
-      }
-    }
-
-    // Remove typing indicator and start typing words
-    const typingIndicator = msgDiv.querySelector(".typing-indicator");
-    if (typingIndicator) typingIndicator.remove();
-
-    typeNextWord();
-  } else {
-    msgDiv.textContent = text;
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
 }
 
-// Function to show typing indicator
-function showTypingIndicator() {
-  const msgDiv = document.createElement("div");
-  msgDiv.classList.add("chat-message", "ai");
-  const indicator = document.createElement("span");
-  indicator.classList.add("typing-indicator");
-  indicator.textContent = "…"; // initial dot
-  msgDiv.appendChild(indicator);
-  chatBox.appendChild(msgDiv);
+// Typing Indicator
+function showTyping() {
+  const dot = document.createElement("div");
+  dot.id = "typingIndicator";
+  dot.className = "chat-message ai";
+  dot.textContent = "EduAI is thinking…";
+  chatBox.appendChild(dot);
   chatBox.scrollTop = chatBox.scrollHeight;
-
-  let dotCount = 1;
-  const interval = setInterval(() => {
-    if (dotCount > 3) dotCount = 1;
-    indicator.textContent = "•".repeat(dotCount);
-    dotCount++;
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }, 500);
-
-  return { msgDiv, interval };
 }
 
-// Send button click
-button.addEventListener("click", () => {
-  const text = input.value.trim();
-  if (!text) return;
+function removeTyping() {
+  const dot = document.getElementById("typingIndicator");
+  if (dot) dot.remove();
+}
 
-  addMessage(text, "user");
+// Handle sending message
+sendBtn.addEventListener("click", () => {
+  const question = input.value.trim();
+  if (!question) return;
+
+  addMessage(question, "user");
   input.value = "";
 
-  // Show typing indicator first
-  const { msgDiv, interval } = showTypingIndicator();
-
-  // After 3-second delay, remove typing indicator and show AI response
-  setTimeout(() => {
-    clearInterval(interval);
-    msgDiv.remove(); // remove placeholder
-    addMessage("Tomodachi, the GREAT PAPYRUS is still connecting your real AI… NYEH HEH!", "ai");
-  }, 3000);
+  showTyping();
+  askAI(question);
 });
 
-// Press Enter to send
-input.addEventListener("keypress", (e) => {
+input.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
-    button.click();
+    sendBtn.click();
   }
 });
+
+// --- AI FUNCTION (Google Gemini Public Endpoint) ---
+async function askAI(prompt) {
+  try {
+    const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }]
+      })
+    });
+
+    const data = await res.json();
+    removeTyping();
+
+    let output =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "Hmm… I couldn't understand that. Try asking again, friend!";
+
+    addMessage(output, "ai");
+
+  } catch (err) {
+    removeTyping();
+    addMessage("⚠ Error: AI is unreachable right now.", "ai");
+    console.error(err);
+  }
+}
