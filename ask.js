@@ -1,165 +1,95 @@
-// ask.js — Robust chat UI with 3s thinking delay, typing indicator, and word-by-word fade.
-// Works immediately with a local fallback AI. Replace callAI() to integrate a real API later.
+// ========== CONFIG ==========
+const HF_API_KEY = "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";  // ← replace ONLY this string
 
-/* DOM refs */
+const MODEL_URL = "https://api-inference.huggingface.co/models/google/gemma-2-9b-it";
+
+// DOM references
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("doubtInput");
-const sendBtn = document.getElementById("sendDoubt");
+const sendButton = document.getElementById("sendDoubt");
 
-/* Utility: scroll to bottom */
-function scrollToBottom() {
-  chatBox.scrollTop = chatBox.scrollHeight;
+// Add message bubble to chat
+function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("chat-message", sender);
+
+    // wrap words in <span> for fade-in
+    const words = text.split(" ").map(word => `<span>${word}</span>`).join(" ");
+    msg.innerHTML = words;
+
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // fade-in word by word
+    const spans = msg.querySelectorAll("span");
+    spans.forEach((span, i) => {
+        setTimeout(() => {
+            span.style.opacity = 1;
+        }, i * 70);   // fade speed per word
+    });
 }
 
-/* Display a message bubble (user or ai). For AI we add word-by-word typing handled separately) */
-function appendMessageElement(sender) {
-  const msgDiv = document.createElement("div");
-  msgDiv.classList.add("chat-message", sender);
-  chatBox.appendChild(msgDiv);
-  scrollToBottom();
-  return msgDiv;
+// Typing indicator
+function showTyping() {
+    const typing = document.createElement("div");
+    typing.id = "typingIndicator";
+    typing.classList.add("chat-message", "ai");
+    typing.innerHTML = "<em>AI is thinking...</em>";
+    chatBox.appendChild(typing);
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-/* Show typing indicator (three dots) and return an object to remove it later */
-function showTypingIndicator() {
-  const container = appendMessageElement("ai");
-  container.classList.add("typing-placeholder");
-  const indicator = document.createElement("span");
-  indicator.className = "typing-indicator";
-  indicator.textContent = "•";
-  container.appendChild(indicator);
-
-  // animate dot count 1→3
-  let count = 1;
-  const interval = setInterval(() => {
-    indicator.textContent = "•".repeat(count);
-    count = count < 3 ? count + 1 : 1;
-    scrollToBottom();
-  }, 500);
-
-  return { container, interval };
+function removeTyping() {
+    const t = document.getElementById("typingIndicator");
+    if (t) t.remove();
 }
 
-/* Remove typing indicator */
-function removeTypingIndicator(obj) {
-  if (!obj) return;
-  clearInterval(obj.interval);
-  if (obj.container) obj.container.remove();
-}
-
-/* Type AI text word-by-word into a given container (smooth fade) */
-function typeTextIntoContainer(text, container, onComplete) {
-  const words = text.split(" ");
-  let i = 0;
-
-  function addNext() {
-    if (i >= words.length) {
-      if (onComplete) onComplete();
-      return;
-    }
-    const span = document.createElement("span");
-    span.textContent = (i === 0 ? "" : " ") + words[i];
-    span.style.opacity = "0";
-    span.style.transition = "opacity 0.35s";
-    container.appendChild(span);
-    // slight delay before fade-in for this word
-    setTimeout(() => { span.style.opacity = "1"; }, 30);
-    i++;
-    scrollToBottom();
-    // natural variation in word timing
-    const delay = 80 + Math.random() * 160; // ~80–240ms
-    setTimeout(addNext, delay);
-  }
-
-  addNext();
-}
-
-/* Add a user message */
-function addUserMessage(text) {
-  const el = appendMessageElement("user");
-  el.textContent = text;
-}
-
-/* Add an AI message (with typing animation). Returns a Promise that resolves when finished */
-function addAIMessageAnimated(text) {
-  return new Promise((resolve) => {
-    // create container (empty) for AI message
-    const aiContainer = appendMessageElement("ai");
-    // start typing animation into aiContainer
-    typeTextIntoContainer(text, aiContainer, () => resolve());
-  });
-}
-
-/* ========== FALLBACK AI ========== */
-/* This function is the place to integrate a real model. For now it returns a safe fallback. */
-/* To use a real API later, replace the internals of callAI() to call your server-side endpoint,
-   then return the AI text string. DO NOT put secret keys in client-side JS on GitHub Pages. */
+// ---- CALL HUGGINGFACE ----
 async function callAI(prompt) {
-  // === Option: attempt a direct fetch to some public endpoint (NOT enabled here).
-  // For safety and to keep this working offline, we use a local fallback.
+    try {
+        const response = await fetch(MODEL_URL, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${HF_API_KEY}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ inputs: prompt })
+        });
 
-  // Simple keyword-aware fallback (improves "feels real")
-  const lowered = prompt.toLowerCase();
-  if (lowered.includes("define") || lowered.includes("what is") || lowered.includes("explain")) {
-    return "Here's a short explanation: " + (prompt.length <= 200 ? prompt : prompt.slice(0, 200)) + " — If you want a longer answer, ask me to elaborate.";
-  }
-  const fallbacks = [
-    "That's an interesting question — here's how I'd think about it: try breaking it into smaller pieces.",
-    "I can help with that. Can you share any specific details or constraints?",
-    "Hmm — I don't have external lookup enabled in this demo, but here's a general approach you can try.",
-    "Try solving it step by step. Start by identifying knowns and unknowns.",
-    "Good question! Here's a hint: try drawing a diagram or writing down what you know."
-  ];
-  // small deterministic-ish pick so replies feel varied
-  const idx = Math.abs(Array.from(prompt).reduce((a,c)=>a+c.charCodeAt(0),0)) % fallbacks.length;
-  return fallbacks[idx];
+        const data = await response.json();
+
+        if (data.error) return "The model is loading… try again in a moment.";
+        return data[0].generated_text;
+    } catch (err) {
+        return "Network error. Try again.";
+    }
 }
 
-/* ========== SEND / FLOW CONTROL ========== */
-let inFlight = false; // prevent multiple concurrent sends
+// ---- SEND BUTTON ----
+sendButton.addEventListener("click", async () => {
+    const text = input.value.trim();
+    if (!text) return;
 
-async function handleSend() {
-  if (inFlight) return;
-  const text = input.value.trim();
-  if (!text) return;
+    addMessage(text, "user");
+    input.value = "";
 
-  inFlight = true;
-  sendBtn.disabled = true;
+    // typing animation starts
+    showTyping();
 
-  addUserMessage(text);
-  input.value = "";
+    // artificial delay
+    await new Promise(res => setTimeout(res, 3000));
 
-  // show typing indicator
-  const typing = showTypingIndicator();
+    // call model
+    const reply = await callAI(text);
 
-  // 3-second "thinking" delay (during this time indicator animates)
-  await new Promise(resolve => setTimeout(resolve, 3000));
+    removeTyping();
+    addMessage(reply, "ai");
+});
 
-  // call AI (fallback or real integration)
-  let aiText;
-  try {
-    aiText = await callAI(text);
-  } catch (err) {
-    aiText = "⚠️ An error occurred while contacting the AI. Try again later.";
-    console.error("AI call error:", err);
-  }
-
-  // remove placeholder typing indicator
-  removeTypingIndicator(typing);
-
-  // animated word-by-word typing into chat
-  await addAIMessageAnimated(aiText);
-
-  // done
-  inFlight = false;
-  sendBtn.disabled = false;
-}
-
-/* Event listeners */
-sendBtn.addEventListener("click", handleSend);
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    handleSend();
-  }
+// allow Enter key to send
+input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendButton.click();
+    }
 });
