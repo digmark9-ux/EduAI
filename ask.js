@@ -2,7 +2,7 @@ const input = document.getElementById("doubtInput");
 const sendBtn = document.getElementById("sendDoubt");
 const chatBox = document.getElementById("chatBox");
 
-const WORKER_URL = "PASTE_YOUR_WORKER_URL_HERE";
+const WORKER_URL = "https://fancy-cake-93f4.digmark9.workers.dev/";
 
 function addMessage(text, type) {
   const msg = document.createElement("div");
